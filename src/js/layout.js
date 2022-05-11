@@ -7,6 +7,9 @@ import { Demo } from "./views/demo";
 import { Single } from "./views/single";
 import injectContext from "./store/appContext";
 
+import ListPlanets,{Planet} from "./views/starWars/planets";
+
+
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 
@@ -22,7 +25,7 @@ const Layout = () => {
 				<ScrollToTop>
 					<Navbar />
 					<Switch>
-						<Route exact path="/">
+					<Route exact path="/">
 							<Home />
 						</Route>
 						<Route exact path="/demo">
@@ -31,9 +34,16 @@ const Layout = () => {
 						<Route exact path="/single/:theid">
 							<Single />
 						</Route>
+						<Route exact path="/planets">
+							<ListPlanets />
+						</Route>
+						<Route exact path="/planets/:id">
+							<Planet />
+						</Route>
 						<Route>
 							<h1>Not found!</h1>
 						</Route>
+					
 					</Switch>
 					<Footer />
 				</ScrollToTop>
