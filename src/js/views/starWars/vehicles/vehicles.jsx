@@ -30,13 +30,13 @@ const Vehicle = () => {
 					<h5>Capacidad (Tons): {vehicle.cargo_capacity}</h5>
 					<h5>Tiempo consumible: {vehicle.consumables}</h5>
 					<h5>Fabricante: {vehicle.manufacturer}</h5>
-					<Link
+					{/*<Link
 						className="btn btn-primary"
 						to={`/vehicles/${vehicle.uid}`}>
 						Leer Mas
 					</Link>
                     <Button variant="warning" >Star</Button>
-					{/* <Button variant="primary">Leer más</Button> */}
+					 <Button variant="primary">Leer más</Button> */}
 				</Card.Body>
 			</Card>
 		);

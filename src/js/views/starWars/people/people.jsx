@@ -31,12 +31,12 @@ const People = () => {
 					<h5>Color de Ojos: {person.eye_color}</h5>
 					<h5>procedencia: {person.homeworld}</h5>
 					<Card.Text>descripción: {person.description}</Card.Text>
-					{/*<Button variant="primary">Go somewhere</Button>*/}
+					{/*<Button variant="primary">Go somewhere</Button>
 					<Link
 						className="btn btn-primary"
 						to={`/planets/${person.uid}`}>
 						Leer Mas
-					</Link>
+					</Link>*/}
 					
 				</Card.Body>
 			</Card>

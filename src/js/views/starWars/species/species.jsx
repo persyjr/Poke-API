@@ -27,12 +27,12 @@ const Specie = () => {
           <h5>Prom Vida (años): {specie.average_lifespan}</h5>
           <h5>Altura prom: {specie.average_height}</h5>
           <h5>Color de piel: {specie.skin_colors}</h5>
-          <Link 
+          {/*<Link 
 		  	className="btn btn-primary" 
 			to={`/species/${specie.uid}`}>
             Leer Mas
           </Link>
-          <Button variant="warning">ADD Star</Button>
+    <Button variant="warning">ADD Star</Button>*/}
         </Card.Body>
       </Card>
     );

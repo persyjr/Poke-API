@@ -31,12 +31,12 @@ const Starship = () => {
 					</h5>
 					<h5>Tasa hyperdriver: {starship.hyperdrive_rating}</h5>
 					<h5>Capacidad (Tons): {starship.cargo_capacity}</h5>
-					<Link
+					{/*<Link
 						className="btn btn-primary"
 						to={`/starships/${starship.uid}`}>
 						Leer Mas
 					</Link>
-					{/* <Button variant="primary">Leer más</Button> */}
+					 <Button variant="primary">Leer más</Button> */}
 				</Card.Body>
 			</Card>
 		);

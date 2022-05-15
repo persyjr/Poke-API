@@ -27,12 +27,12 @@ const Planet = () => {
 					<h5>gravity: {planet.gravity}</h5>
 					<h5>clima: {planet.climate}</h5>
 					<h5>Terreno: {planet.terrain}</h5>
-					<Link
+					{/*<Link
 						className="btn btn-primary"
 						to={`/planets/${planet.uid}`}>
 						Leer Mas
 					</Link>
-					<Button variant="warning" >ADD Star</Button>
+					<Button variant="warning" >ADD Star</Button>*/}
 				</Card.Body>
 			</Card>
 		);
