@@ -32,7 +32,7 @@ const Planet = () => {
 						to={`/planets/${planet.uid}`}>
 						Leer Mas
 					</Link>
-					<Button variant="warning" onClick={()=>agregarFavoritos(planet)}>Star</Button>
+					<Button variant="warning" >ADD Star</Button>
 				</Card.Body>
 			</Card>
 		);

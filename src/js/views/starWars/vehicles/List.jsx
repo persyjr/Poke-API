@@ -1,4 +1,4 @@
-import React, { useState, useEffect ,useContext } from "react";
+import React, { useState, useEffect,useContext} from "react";
 import {
 	ListGroup,
 	ListGroupItem,
@@ -9,20 +9,18 @@ import {
 	Button,
 } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import { planets } from "../../../apiStarWars.js";
+import { vehicles } from "../../../apiStarWars.js";
 import { Link } from "react-router-dom";
 import { Context } from "../../../store/appContext.js";
 
-
-const ListPlanets = () => {
-	
+const ListVehicles = () => {
 	var [data, setData] = useState([]);
 	var [page, setPage] = useState(1);
 	var [pages, setPages] = useState(1);
-	const myStore = useContext(Context);
+    const myStore = useContext(Context);
 
 	function irAPagina(id) {
-		planets.getQuery(id).then((data) => {
+		vehicles.getQuery(id).then((data) => {
 			console.log("Cargando pagina ... ", id);
 			// Se actualizan los valores del estado
 			setData(data.results);
@@ -48,44 +46,48 @@ const ListPlanets = () => {
 	useEffect(() => {
 		console.log("Componente montado");
 		irAPagina(1);
+		return () => {
+			console.log("Componente desmontado");
+		};
 	}, []);
- 
+
 	useEffect(() => {
 		console.log("Actualizando paginas");
 		// actualizarPaginacion();
 		return () => {
 			console.log("Finalizada la actualizacion de paginas");
 		};
-	}, [pages, pages]); 
+	}, [pages, pages]);
 
-	function agregarFavoritos(planet){
+    function agregarFavoritos(vehicle){
 		const favorito ={
-			id:`planets/${planet.uid}`,
-			name:planet.name
+			id:`vehicles/${vehicle.uid}`,
+			name:vehicle.name
 		}
 		myStore.actions.agregarFavorito(favorito)
 	}
 
 	function getItems() {
 		if (!data) return;
-		return data.map((planet) => {
+		return data.map((vehicle) => {
 			return (
-				<ListGroup.Item key={planet.uid}>
+				<ListGroup.Item key={vehicle.uid}>
 					<Card style={{ width: "18rem" }}>
 						<Card.Img
 							className="img-fluid"
 							variant="top"
 							height="50"
-							src={planet.img}
+							src={vehicle.img}
 						/>
 						<Card.Body>
-							<Card.Title>{planet.name}</Card.Title>
+							<Card.Title>{vehicle.name}</Card.Title>
 							<Link
-							className="btn btn-primary"
-							to={`/planets/${planet.uid}`}>
-							Leer Mas
+								className="btn btn-primary"
+								to={`/vehicles/${vehicle.uid}`}>
+								Leer Mas
 							</Link>
-                            <Button variant="warning" onClick={()=>agregarFavoritos(planet)}>ADD Star</Button>							
+                            <Button variant="warning" onClick={()=>agregarFavoritos(vehicle)}>ADD Star</Button>
+							{/* <Button variant="primary">Leer más</Button> */}
 						</Card.Body>
 					</Card>
 				</ListGroup.Item>
@@ -121,4 +123,4 @@ const ListPlanets = () => {
 		</div>
 	);
 };
-export default ListPlanets;
+export default ListVehicles;

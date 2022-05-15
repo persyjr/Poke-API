@@ -1,4 +1,4 @@
-import React, { useState, useEffect ,useContext } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import {
 	ListGroup,
 	ListGroupItem,
@@ -9,21 +9,21 @@ import {
 	Button,
 } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import { planets } from "../../../apiStarWars.js";
+import { people } from "../../../apiStarWars.js";
 import { Link } from "react-router-dom";
 import { Context } from "../../../store/appContext.js";
 
-
-const ListPlanets = () => {
-	
+const ListPeople = () => {
 	var [data, setData] = useState([]);
 	var [page, setPage] = useState(1);
-	var [pages, setPages] = useState(1);
-	const myStore = useContext(Context);
+	var [pages, setPages] = useState(1); //me indica el numero de paginas del footer list
+	var [paginationItems, setPaginationItems] = useState([]);
+    const myStore = useContext(Context);
+    
 
 	function irAPagina(id) {
-		planets.getQuery(id).then((data) => {
-			console.log("Cargando pagina ... ", id);
+		people.getQuery(id).then((data) => {
+			console.log("cargando pagina...", id);
 			// Se actualizan los valores del estado
 			setData(data.results);
 			setPage(id);
@@ -34,9 +34,8 @@ const ListPlanets = () => {
 	}
 
 	function siguientePagina() {
-		if (page < pages) {
-			irAPagina(page + 1);
-		}
+		if (page < pages);
+		irAPagina(page + 1);
 	}
 
 	function previaPagina() {
@@ -45,47 +44,55 @@ const ListPlanets = () => {
 		}
 	}
 
+	//people.getById(1).then((data) => console.log(data));
+	//people.getQuery().then((data) => console.log(data));
+
 	useEffect(() => {
 		console.log("Componente montado");
 		irAPagina(1);
+		return () => {
+			console.log("Componente desmontado");
+		};
 	}, []);
- 
+
 	useEffect(() => {
 		console.log("Actualizando paginas");
-		// actualizarPaginacion();
+		actualizarPaginacion();
 		return () => {
 			console.log("Finalizada la actualizacion de paginas");
 		};
-	}, [pages, pages]); 
+	}, [page, pages]);
 
-	function agregarFavoritos(planet){
+    function agregarFavoritos(person){
 		const favorito ={
-			id:`planets/${planet.uid}`,
-			name:planet.name
+			id:`people/${person.uid}`,
+			name:person.name
 		}
 		myStore.actions.agregarFavorito(favorito)
 	}
-
 	function getItems() {
 		if (!data) return;
-		return data.map((planet) => {
+		return data.map((person) => {
 			return (
-				<ListGroup.Item key={planet.uid}>
+				<ListGroup.Item key={person.uid}>
 					<Card style={{ width: "18rem" }}>
 						<Card.Img
 							className="img-fluid"
+							src={person.img}
 							variant="top"
-							height="50"
-							src={planet.img}
+							width="180"
+							height="100"
 						/>
 						<Card.Body>
-							<Card.Title>{planet.name}</Card.Title>
+							<Card.Title>{person.name}</Card.Title>
+
 							<Link
-							className="btn btn-primary"
-							to={`/planets/${planet.uid}`}>
-							Leer Mas
+								className="btn btn-primary"
+								to={`/people/${person.uid}`}>
+								Leer Mas
 							</Link>
-                            <Button variant="warning" onClick={()=>agregarFavoritos(planet)}>ADD Star</Button>							
+                            <Button variant="warning" onClick={()=>agregarFavoritos(person)}>ADD Star</Button>
+							{/* solo puedo ingresar el nombre en el card porque en este nivel de la api solo me permite ver el nombre y 2 parametros mas <Button variant="primary">Leer más</Button> */}
 						</Card.Body>
 					</Card>
 				</ListGroup.Item>
@@ -93,10 +100,10 @@ const ListPlanets = () => {
 		});
 	}
 
-	function paginationItems() {
-		var items = [];
+	function actualizarPaginacion() {
+		var tmp = [];
 		for (let i = 1; i <= pages; i++) {
-			items.push(
+			tmp.push(
 				<Pagination.Item
 					onClick={() => irAPagina(i)}
 					key={i}
@@ -105,7 +112,7 @@ const ListPlanets = () => {
 				</Pagination.Item>
 			);
 		}
-		return items;
+		return tmp;
 	}
 
 	return (
@@ -115,10 +122,11 @@ const ListPlanets = () => {
 			</ListGroup>
 			<Pagination>
 				<Pagination.Prev onClick={previaPagina} />
-				{paginationItems()}
+				{actualizarPaginacion()}
 				<Pagination.Next onClick={siguientePagina} />
 			</Pagination>
 		</div>
 	);
 };
-export default ListPlanets;
+
+export default ListPeople;

@@ -3,6 +3,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			stared : [],
 			planets:[],
+			people:[],
+			species:[],
+			starships:[],
+			vehicles:[],
 			characters: []
 		},
 		actions: {
