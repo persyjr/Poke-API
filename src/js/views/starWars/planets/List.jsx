@@ -17,9 +17,7 @@ const ListPlanets = () => {
 	var [pages, setPages] = useState(1);
 	const myStore = useContext(Context);
 
-	function irAPagina(id) {
-		//esta funcion me permite usar el boton de cada paginacion
-		//primero traigo la informacion desde mi funcion en la apiPokemon.js
+	function irAPagina(id) {		
 		planets.getQuery(id).then((data) => {
 			console.log("Cargando pagina ... ", id);
 			// Se actualizan los valores del estado
@@ -32,14 +30,13 @@ const ListPlanets = () => {
 	}
 
 	function siguientePagina() {
-		//esta funcion me permite usar el boton de la paginacion para ir a la siguiente pagina
+		
 		if (page < pages) {
 			irAPagina(page + 1);
 		}
 	}
 
 	function previaPagina() {
-		//esta funcion me permite usar el boton de la paginacion e ir a la pagina previa
 		if (1 < page) {
 			irAPagina(page - 1);
 		}
@@ -67,8 +64,6 @@ const ListPlanets = () => {
 	}
 
 	function getItems() {
-		//esta es la funcion que me muestra la vista de items con la imagen en un stilo card
-		//lo hago mediante un map a la variable data
 		if (!data) return;
 		return data.map((planet) => {
 			return (

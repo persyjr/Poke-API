@@ -16,24 +16,29 @@ const ListPokemon = () => {
     const myStore = useContext(Context);
 
 	function irAPagina(id) {
+		//esta funcion me permite usar el boton de cada paginacion
+		//primero traigo la informacion desde mi funcion en la apiPokemon.js
 		pokemon.getQuery(id).then((data) => {
 			console.log("Cargando pagina ... ", id);
 			// Se actualizan los valores del estado
+			console.log(data)
 			setData(data.results);
 			setPage(id);
 			// Esta actualizacion tiene un hook
-			setPages(data.total_pages);
+			setPages(1);//numero de paginas por vista data.total_pages
 			console.log("Cargada pagina ", id);
 		});
 	}
 
 	function siguientePagina() {
+		//esta funcion me permite usar el boton de la paginacion para ir a la siguiente pagina
 		if (page < pages) {
 			irAPagina(page + 1);
 		}
 	}
 
 	function previaPagina() {
+		//esta funcion me permite usar el boton de la paginacion e ir a la pagina previa
 		if (1 < page) {
 			irAPagina(page - 1);
 		}
@@ -49,7 +54,7 @@ const ListPokemon = () => {
 
 	useEffect(() => {
 		console.log("Actualizando paginas");
-		// actualizarPaginacion();
+		//actualizarPaginacion();
 		return () => {
 			console.log("Finalizada la actualizacion de paginas");
 		};
@@ -64,6 +69,8 @@ const ListPokemon = () => {
 	}
 
 	function getItems() {
+		//esta es la funcion que me muestra la vista de items con la imagen en un stilo card
+		//lo hago mediante un map a la variable data
 		if (!data) return;
 		return data.map((pokemon) => {
 			return (
@@ -82,7 +89,7 @@ const ListPokemon = () => {
 								to={`/vehicles/${vehicle.uid}`}>
 								Leer Mas
 							</Link>*/}
-                            <Button variant="warning" onClick={()=>agregarFavoritos(vehicle)}>ADD Star</Button>
+                            <Button variant="warning" onClick={()=>agregarFavoritos(pokemon)}>ADD Star</Button>
 							{/* <Button variant="primary">Leer más</Button> */}
 						</Card.Body>
 					</Card>
