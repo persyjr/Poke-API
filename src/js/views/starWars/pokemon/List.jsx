@@ -9,6 +9,10 @@ import { pokemon } from "../../../apiStarWars.js";
 import { Link } from "react-router-dom";
 import { Context } from "../../../store/appContext.js";
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 const ListPokemon = () => {
 	var [data, setData] = useState([]);
 	var [page, setPage] = useState(1);
@@ -74,8 +78,8 @@ const ListPokemon = () => {
 		if (!data) return;
 		return data.map((pokemon) => {
 			return (
-				<ListGroup.Item key={data.indexOf(pokemon)+1}>
-					<Card style={{ width: "18rem" }}>
+				<ListGroup.Item className="d-flex justify-content-center" key={data.indexOf(pokemon)+1}>
+					<Card style={{ width: "10rem" }}>
 						<Card.Img
 							className="img-fluid"
 							variant="top"
@@ -114,15 +118,25 @@ const ListPokemon = () => {
 	}
 
 	return (
-		<div>
-			<ListGroup horizontal style={{ overflowX: "scroll" }}>
+		<div >
+			{/*<ListGroup horizontal style={{ overflowX: "scroll" }}>
 				{getItems()}
-			</ListGroup>
-			<Pagination>
+			</ListGroup>*/}
+			<Container >
+				<Col  lg={9} >
+					<Row xs={1} md={2} lg={4} >
+						{getItems()}
+					</Row>
+				</Col>
+				<Col>
+				</Col>
+				
+			</Container>
+			{/*<Pagination>
 				<Pagination.Prev onClick={previaPagina} />
 				{paginationItems()}
 				<Pagination.Next onClick={siguientePagina} />
-			</Pagination>
+			</Pagination>*/}
 		</div>
 	);
 };
