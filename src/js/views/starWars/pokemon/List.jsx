@@ -1,26 +1,22 @@
-import React, { useState, useEffect,useContext  } from "react";
+import React, { useState, useEffect,useContext} from "react";
 import {
 	ListGroup,
-	ListGroupItem,
 	Pagination,
-	PaginationItem,
-	PaginationNext,
-	PaginationPrev,
 	Button,
 } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import { starships } from "../../../apiStarWars.js";
+import { pokemon } from "../../../apiStarWars.js";
 import { Link } from "react-router-dom";
 import { Context } from "../../../store/appContext.js";
 
-const ListStarships = () => {
+const ListPokemon = () => {
 	var [data, setData] = useState([]);
 	var [page, setPage] = useState(1);
 	var [pages, setPages] = useState(1);
     const myStore = useContext(Context);
 
 	function irAPagina(id) {
-		starships.getQuery(id).then((data) => {
+		pokemon.getQuery(id).then((data) => {
 			console.log("Cargando pagina ... ", id);
 			// Se actualizan los valores del estado
 			setData(data.results);
@@ -58,35 +54,35 @@ const ListStarships = () => {
 			console.log("Finalizada la actualizacion de paginas");
 		};
 	}, [pages, pages]);
-    
-    function agregarFavoritos(starship){
+
+    function agregarFavoritos(pokemon){
 		const favorito ={
-			id:`starships/${starship.uid}`,
-			name:starship.name
+			url:pokemon.url,
+			name:pokemon.name
 		}
 		myStore.actions.agregarFavorito(favorito)
 	}
 
 	function getItems() {
 		if (!data) return;
-		return data.map((starship) => {
+		return data.map((pokemon) => {
 			return (
-				<ListGroup.Item key={starship.uid}>
+				<ListGroup.Item key={data.indexOf(pokemon)+1}>
 					<Card style={{ width: "18rem" }}>
 						<Card.Img
 							className="img-fluid"
 							variant="top"
 							height="50"
-							src={starship.img}
+							src={pokemon.img}
 						/>
 						<Card.Body>
-							<Card.Title>{starship.name}</Card.Title>
-							<Link
+							<Card.Title>{pokemon.name}</Card.Title>
+							{/*<Link
 								className="btn btn-primary"
-								to={`/starships/${starship.uid}`}>
+								to={`/vehicles/${vehicle.uid}`}>
 								Leer Mas
-							</Link>
-                            <Button variant="warning" onClick={()=>agregarFavoritos(starship)}>ADD Star</Button>
+							</Link>*/}
+                            <Button variant="warning" onClick={()=>agregarFavoritos(vehicle)}>ADD Star</Button>
 							{/* <Button variant="primary">Leer más</Button> */}
 						</Card.Body>
 					</Card>
@@ -123,4 +119,4 @@ const ListStarships = () => {
 		</div>
 	);
 };
-export default ListStarships;
+export default ListPokemon;

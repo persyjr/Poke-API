@@ -3,9 +3,9 @@ import "../../styles/home.css";
 
 export const Home = () => (
 	<div className="text-center mt-5">
-		<h1>STAR WARS 4GEEKS</h1>
+		<h1>POKEMON API</h1>
 		<p>
-			<img className="imagenPortada" src="https://cdn.wallpapersafari.com/36/13/rdg6Aa.jpg" />
+			<img className="imagenPortada fluid" src="https://c4.wallpaperflare.com/wallpaper/772/372/914/pokemon-eevee-pokemon-eeveelutions-espeon-pokemon-wallpaper-preview.jpg" />
 		</p>
 	</div>
 );

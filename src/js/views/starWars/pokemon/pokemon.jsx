@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { vehicles } from "../../../apiStarWars.js";
+import { pokemon } from "../../../apiStarWars.js";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
-const Vehicle = () => {
+const Pokemon= () => {
 	const params = useParams();
 	const [vehicle, setVehicle] = useState({});
 	vehicles.getById(params.id).then((res) => setVehicle(res));
@@ -45,4 +45,4 @@ const Vehicle = () => {
 	return <div>{getVehicle()}</div>;
 };
 
-export default Vehicle;
+export default Pokemon;

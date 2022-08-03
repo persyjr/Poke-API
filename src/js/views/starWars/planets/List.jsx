@@ -1,15 +1,11 @@
 import React, { useState, useEffect ,useContext } from "react";
 import {
 	ListGroup,
-	ListGroupItem,
 	Pagination,
-	PaginationItem,
-	PaginationNext,
-	PaginationPrev,
 	Button,
 } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import { planets } from "../../../apiStarWars.js";
+import { planets } from "../../../apiStarWars.js";//importo mi funcion donde tengo la url de la api y hago mi peticion
 import { Link } from "react-router-dom";
 import { Context } from "../../../store/appContext.js";
 
@@ -22,6 +18,8 @@ const ListPlanets = () => {
 	const myStore = useContext(Context);
 
 	function irAPagina(id) {
+		//esta funcion me permite usar el boton de cada paginacion
+		//primero traigo la informacion desde mi funcion en la apiPokemon.js
 		planets.getQuery(id).then((data) => {
 			console.log("Cargando pagina ... ", id);
 			// Se actualizan los valores del estado
@@ -34,12 +32,14 @@ const ListPlanets = () => {
 	}
 
 	function siguientePagina() {
+		//esta funcion me permite usar el boton de la paginacion para ir a la siguiente pagina
 		if (page < pages) {
 			irAPagina(page + 1);
 		}
 	}
 
 	function previaPagina() {
+		//esta funcion me permite usar el boton de la paginacion e ir a la pagina previa
 		if (1 < page) {
 			irAPagina(page - 1);
 		}
@@ -60,13 +60,15 @@ const ListPlanets = () => {
 
 	function agregarFavoritos(planet){
 		const favorito ={
-			id:`planets/${planet.uid}`,
+			uid:`planets/${planet.uid}`,
 			name:planet.name
 		}
 		myStore.actions.agregarFavorito(favorito)
 	}
 
 	function getItems() {
+		//esta es la funcion que me muestra la vista de items con la imagen en un stilo card
+		//lo hago mediante un map a la variable data
 		if (!data) return;
 		return data.map((planet) => {
 			return (
@@ -94,6 +96,8 @@ const ListPlanets = () => {
 	}
 
 	function paginationItems() {
+		//Esta funcion me permite hacer la paginación llenado los items en mi arreglo items[] con la funcion ir a pagina
+		//similar a get items, pero con una variable local y sin devolver una imagen usando un for
 		var items = [];
 		for (let i = 1; i <= pages; i++) {
 			items.push(
