@@ -25,18 +25,14 @@ const Layout = () => {
 					<Navbar />
 					<Switch>
 						<Route exact path="/">
-							<Home />
-							<ListPlanets />
+							<Home />							
 							<ListPokemon />				
 						</Route>					
 						<Route exact path="/single/:theid">
 							<Single />
-						</Route>
-						<Route exact path="/planets">
-							<ListPlanets />
-						</Route>
-						<Route exact path="/planets/:id">
-							<Planet />
+						</Route>						
+						<Route exact path="/pokemon/:id">
+							<Pokemon />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>

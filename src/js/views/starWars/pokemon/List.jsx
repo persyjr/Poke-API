@@ -5,19 +5,21 @@ import {
 	Button,
 } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 import { pokemon } from "../../../apiStarWars.js";
 import { Link } from "react-router-dom";
 import { Context } from "../../../store/appContext.js";
 
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 const ListPokemon = () => {
 	var [data, setData] = useState([]);
 	var [page, setPage] = useState(1);
 	var [pages, setPages] = useState(1);
     const myStore = useContext(Context);
+	const {store}= useContext(Context)
 
 	function irAPagina(id) {
 		//esta funcion me permite usar el boton de cada paginacion
@@ -50,7 +52,7 @@ const ListPokemon = () => {
 
 	useEffect(() => {
 		console.log("Componente montado");
-		irAPagina(1);
+		irAPagina(0);
 		return () => {
 			console.log("Componente desmontado");
 		};
@@ -80,22 +82,25 @@ const ListPokemon = () => {
 			return (
 				<ListGroup.Item className="d-flex justify-content-center" key={data.indexOf(pokemon)+1}>
 					<Card style={{ width: "10rem" }}>
-						<Card.Img
-							className="img-fluid"
-							variant="top"
-							height="50"
-							src={pokemon.img}
-						/>
-						<Card.Body>
-							<Card.Title>{pokemon.name}</Card.Title>
-							{/*<Link
+							<Link
 								className="btn btn-primary"
-								to={`/vehicles/${vehicle.uid}`}>
-								Leer Mas
-							</Link>*/}
-                            <Button variant="warning" onClick={()=>agregarFavoritos(pokemon)}>ADD Star</Button>
-							{/* <Button variant="primary">Leer más</Button> */}
-						</Card.Body>
+								to={`/pokemon/${pokemon.id}`}>
+								<div>
+									<Card.Img
+										className="img-fluid"
+										variant="top"
+										height="50"
+										src={pokemon.img}
+									/>
+									<Card.Body>
+									<Card.Title>#{pokemon.id} {pokemon.name}</Card.Title>					
+							
+									</Card.Body>
+								</div>
+							</Link>
+						
+							<Button variant="warning" onClick={()=>agregarFavoritos(pokemon)}><h4><strong> + </strong></h4></Button>
+						{/* <Button variant="primary">Leer más</Button> */}
 					</Card>
 				</ListGroup.Item>
 			);
@@ -117,20 +122,28 @@ const ListPokemon = () => {
 		return items;
 	}
 
+	function cargarFavoritos(){
+		return store.stared.map(item =><li>{item.name}</li>)
+	}
+	
+
 	return (
 		<div >
 			{/*<ListGroup horizontal style={{ overflowX: "scroll" }}>
 				{getItems()}
 			</ListGroup>*/}
 			<Container >
+			<Row>
 				<Col  lg={9} >
-					<Row xs={1} md={2} lg={4} >
+					<Row xs={2} md={3} lg={4} >
 						{getItems()}
-					</Row>
+					</Row>										
 				</Col>
-				<Col>
+				<Col >
+					<h4><strong><i>LISTOS PARA EL COMBATE</i></strong></h4>
+					<ul>{cargarFavoritos()}</ul>			
 				</Col>
-				
+			</Row>	
 			</Container>
 			{/*<Pagination>
 				<Pagination.Prev onClick={previaPagina} />

@@ -10,8 +10,9 @@ const pokemon = {
 			if (resp.ok) {
 				let res = await resp.json();
 				return {
-					img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${res.abilities.order}.png`,
-					...res.abilities.species,
+					img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${res.id}.png`,
+					numero: `${res.id}`,
+					...res,
 				};
 			}
 			console.error(resp.status, resp.statusText);
@@ -31,8 +32,8 @@ const pokemon = {
 
 				data.results = data.results.map((pokemon) => {
 					return {
-						img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.results.indexOf(pokemon)+2}.png`,
-						uid:parseInt(`${data.results.indexOf(pokemon)+1}`),
+						img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.results.indexOf(pokemon)+1}.png`,
+						id:parseInt(`${data.results.indexOf(pokemon)+1}`),
 						...pokemon,
 					};
 				});

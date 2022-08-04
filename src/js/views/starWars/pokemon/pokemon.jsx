@@ -6,43 +6,33 @@ import Button from "react-bootstrap/Button";
 
 const Pokemon= () => {
 	const params = useParams();
-	const [vehicle, setVehicle] = useState({});
-	vehicles.getById(params.id).then((res) => setVehicle(res));
+	const [poke_info, setPoke_info] = useState({});
+	pokemon.getById(params.id).then((res) => setPoke_info(res));
 	// useEffect(() => {}, [planet]);
-	function getVehicle() {
+	function getPoke_info() {
 		return (
 			<Card style={{ width: "18rem" }}>
 				<Card.Img
 					className="img-fluid"
-					src={vehicle.img}
+					src={poke_info.img}
 					variant="top"
 					width="180"
 					height="100"
 				/>
 				<Card.Body>
-					<Card.Title>{vehicle.name}</Card.Title>
-					<h5>{vehicle.description}</h5>
-					<h5>Modelo: {vehicle.model}</h5>
-					<h5>Clase: {vehicle.vehicle_class}</h5>
-					<h5>No pasajeros: {vehicle.passengers}</h5>
-					<h5>Longitud: {vehicle.length}</h5>
-					<h5>Velocidad (mi/h): {vehicle.max_atmosphering_speed}</h5>
-					<h5>Capacidad (Tons): {vehicle.cargo_capacity}</h5>
-					<h5>Tiempo consumible: {vehicle.consumables}</h5>
-					<h5>Fabricante: {vehicle.manufacturer}</h5>
-					{/*<Link
-						className="btn btn-primary"
-						to={`/vehicles/${vehicle.uid}`}>
-						Leer Mas
-					</Link>
-                    <Button variant="warning" >Star</Button>
-					 <Button variant="primary">Leer más</Button> */}
+					<Card.Title>NOMBRE : {poke_info.name}</Card.Title>
+					<h5>NUMERO : {poke_info.id}</h5>
+					<h5>ALTURA : {poke_info.height} cm</h5>
+					<h5>PESO : {poke_info.weight} Kg</h5>
+					{/*<h5>{poke_info.types}</h5>
+					<h5>{poke_info.abilities}</h5>*/}
+					
 				</Card.Body>
 			</Card>
 		);
 	}
 
-	return <div>{getVehicle()}</div>;
+	return <div>{getPoke_info()}</div>;
 };
 
 export default Pokemon;
