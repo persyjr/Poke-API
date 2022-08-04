@@ -45,11 +45,25 @@ const ListPokemon = () => {
 
 	
     function agregarFavoritos(pokemon){
+		//verifico que no se haya seleccionado antes el mismo pokemon
+		for (let i=0; i<store.stared.length; i++) {
+			if (pokemon.id==store.stared[i].id){
+				return 0
+			}
+
+		}
+		//agrego los parametros que voy a necesitar al store
 		const favorito ={
 			url:pokemon.url,
-			name:pokemon.name
+			name:pokemon.name,
+			img: pokemon.img,
+			id: pokemon.id
 		}
 		myStore.actions.agregarFavorito(favorito)
+	}
+
+	function eliminarFavorito (id){
+		myStore.actions.eliminarFavoritos(id)
 	}
 
 	function getItems() {
@@ -87,7 +101,29 @@ const ListPokemon = () => {
 	
 
 	function cargarFavoritos(){
-		return store.stared.map(item =><li>{item.name}</li>)
+		if (store.stared == 0){
+			return (
+				<h4><i>lista vacia, no hay ningún pokemón listo</i></h4>
+			);
+		} 
+		return store.stared.map(item =>
+		<div>
+			
+			<Card style={{ width: "10rem" }}>									
+				<Card.Img
+					className="img-fluid"
+					variant="top"
+					height="50"
+					src={item.img}
+				/>
+				<Card.Body>
+					<Card.Title># {item.id} {item.name}</Card.Title>	
+				</Card.Body>
+				<Button variant="primary" onClick={()=>eliminarFavorito(item.id)}><h4><strong> - </strong></h4></Button>
+			</Card>
+			
+					
+		</div>);
 	}
 	
 
@@ -96,15 +132,17 @@ const ListPokemon = () => {
 			
 			<Container >
 			<Row>
-				<Col  lg={9}  >
-					<h2 className="d-flex justify-content-center">¿Quien es ese pokemon?</h2>
+				<Col  lg={8}  >
+					<h2 >¿Quien es ese pokemon?</h2>
 					<Row xs={2} md={3} lg={4} >
 						{getItems()}
 					</Row>										
 				</Col>
 				<Col >
 					<h4><strong><i>LISTOS PARA EL COMBATE</i></strong></h4>
-					<ul><h5>{cargarFavoritos()}</h5></ul>			
+					<Row className="d-flex justify-content-evenly" xs={2} md={2} lg={2} >
+						{cargarFavoritos()}
+					</Row>			
 				</Col>
 			</Row>	
 			</Container>

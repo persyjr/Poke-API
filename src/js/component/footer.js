@@ -1,4 +1,4 @@
-import React, { Component, useContext } from "react";
+import React from "react";
 
 export const Footer = () => {
 	
