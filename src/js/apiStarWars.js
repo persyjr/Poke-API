@@ -1,4 +1,4 @@
-//const baseUrl = "https://www.swapi.tech/api/";
+
 const baseUrl = "https://pokeapi.co/api/v2/";
 
 const pokemon = {
@@ -10,7 +10,7 @@ const pokemon = {
 			if (resp.ok) {
 				let res = await resp.json();
 				return {
-					img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${res.id}.png`,
+					img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${res.id}.png`,
 					numero: `${res.id}`,
 					...res,
 				};
@@ -32,7 +32,8 @@ const pokemon = {
 
 				data.results = data.results.map((pokemon) => {
 					return {
-						img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.results.indexOf(pokemon)+1}.png`,
+						
+						img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.results.indexOf(pokemon)+1}.png`,
 						id:parseInt(`${data.results.indexOf(pokemon)+1}`),
 						...pokemon,
 					};
@@ -49,49 +50,4 @@ const pokemon = {
 	},
 };
 
-
-
-const planets = {
-	getById: async (id) => {
-		try {
-			const resp = await fetch(`${baseUrl}planets/${id}`);
-			if (resp.ok) {
-				let res = await resp.json();
-				return {
-					img: `https://starwars-visualguide.com/assets/img/planets/${res.result.uid}.jpg`,
-					...res.result.properties,
-				};
-			}
-			console.error(resp.status, resp.statusText);
-			return [];
-		} catch (error) {
-			console.error("Error en la api", error);
-			return [];
-		}
-	},
-	getQuery: async (page = 1, limit = 10) => {
-		try {
-			const resp = await fetch(
-				`${baseUrl}planets/?limit=${limit}&page=${page}`
-			);
-			if (resp.ok) {
-				let data = await resp.json();
-				data.results = data.results.map((planet) => {
-					return {
-						img: `https://starwars-visualguide.com/assets/img/planets/${planet.uid}.jpg`,
-						...planet,
-					};
-				});
-				return data;
-			}
-			console.error(resp.status, resp.statusText);
-		} catch (error) {
-			console.error(resp.status, resp.statusText);
-			return [];
-		}
-	},
-};
-
-
-
-export { pokemon, planets, };
+export { pokemon };

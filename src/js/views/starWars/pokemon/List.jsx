@@ -1,9 +1,9 @@
 import React, { useState, useEffect,useContext} from "react";
 import {
 	ListGroup,
-	Pagination,
 	Button,
 } from "react-bootstrap";
+
 import Card from "react-bootstrap/Card";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -16,8 +16,6 @@ import { Context } from "../../../store/appContext.js";
 
 const ListPokemon = () => {
 	var [data, setData] = useState([]);
-	var [page, setPage] = useState(1);
-	var [pages, setPages] = useState(1);
     const myStore = useContext(Context);
 	const {store}= useContext(Context)
 
@@ -27,28 +25,15 @@ const ListPokemon = () => {
 		pokemon.getQuery(id).then((data) => {
 			console.log("Cargando pagina ... ", id);
 			// Se actualizan los valores del estado
-			console.log(data)
+			
 			setData(data.results);
-			setPage(id);
 			// Esta actualizacion tiene un hook
-			setPages(1);//numero de paginas por vista data.total_pages
+			
 			console.log("Cargada pagina ", id);
 		});
 	}
 
-	function siguientePagina() {
-		//esta funcion me permite usar el boton de la paginacion para ir a la siguiente pagina
-		if (page < pages) {
-			irAPagina(page + 1);
-		}
-	}
-
-	function previaPagina() {
-		//esta funcion me permite usar el boton de la paginacion e ir a la pagina previa
-		if (1 < page) {
-			irAPagina(page - 1);
-		}
-	}
+	
 
 	useEffect(() => {
 		console.log("Componente montado");
@@ -58,14 +43,7 @@ const ListPokemon = () => {
 		};
 	}, []);
 
-	useEffect(() => {
-		console.log("Actualizando paginas");
-		//actualizarPaginacion();
-		return () => {
-			console.log("Finalizada la actualizacion de paginas");
-		};
-	}, [pages, pages]);
-
+	
     function agregarFavoritos(pokemon){
 		const favorito ={
 			url:pokemon.url,
@@ -85,7 +63,7 @@ const ListPokemon = () => {
 							<Link
 								className="btn btn-primary"
 								to={`/pokemon/${pokemon.id}`}>
-								<div>
+								<div>									
 									<Card.Img
 										className="img-fluid"
 										variant="top"
@@ -93,8 +71,7 @@ const ListPokemon = () => {
 										src={pokemon.img}
 									/>
 									<Card.Body>
-									<Card.Title>#{pokemon.id} {pokemon.name}</Card.Title>					
-							
+										<Card.Title># {pokemon.id} {pokemon.name}</Card.Title>	
 									</Card.Body>
 								</div>
 							</Link>
@@ -107,20 +84,7 @@ const ListPokemon = () => {
 		});
 	}
 
-	function paginationItems() {
-		var items = [];
-		for (let i = 1; i <= pages; i++) {
-			items.push(
-				<Pagination.Item
-					onClick={() => irAPagina(i)}
-					key={i}
-					active={i === page}>
-					{i}
-				</Pagination.Item>
-			);
-		}
-		return items;
-	}
+	
 
 	function cargarFavoritos(){
 		return store.stared.map(item =><li>{item.name}</li>)
@@ -129,27 +93,22 @@ const ListPokemon = () => {
 
 	return (
 		<div >
-			{/*<ListGroup horizontal style={{ overflowX: "scroll" }}>
-				{getItems()}
-			</ListGroup>*/}
+			
 			<Container >
 			<Row>
-				<Col  lg={9} >
+				<Col  lg={9}  >
+					<h2 className="d-flex justify-content-center">¿Quien es ese pokemon?</h2>
 					<Row xs={2} md={3} lg={4} >
 						{getItems()}
 					</Row>										
 				</Col>
 				<Col >
 					<h4><strong><i>LISTOS PARA EL COMBATE</i></strong></h4>
-					<ul>{cargarFavoritos()}</ul>			
+					<ul><h5>{cargarFavoritos()}</h5></ul>			
 				</Col>
 			</Row>	
 			</Container>
-			{/*<Pagination>
-				<Pagination.Prev onClick={previaPagina} />
-				{paginationItems()}
-				<Pagination.Next onClick={siguientePagina} />
-			</Pagination>*/}
+			
 		</div>
 	);
 };

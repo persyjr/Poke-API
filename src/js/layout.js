@@ -6,7 +6,6 @@ import { Home } from "./views/home";
 import { Single } from "./views/single";
 import injectContext from "./store/appContext";
 
-import ListPlanets,{Planet} from "./views/starWars/planets";
 import ListPokemon,{Pokemon} from "./views/starWars/pokemon";
 
 import { Navbar } from "./component/navbar";
