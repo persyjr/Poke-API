@@ -22,7 +22,7 @@ const pokemon = {
 			return [];
 		}
 	},
-	getQuery: async (page = 1, limit = 151) => {
+	getQuery: async (page = 0, limit = 151) => {
 		try {
 			const resp = await fetch(
 				`${baseUrl}pokemon?limit=${limit}&offset=${page}`

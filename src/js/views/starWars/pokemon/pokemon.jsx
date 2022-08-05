@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState,useContext} from "react";
 import { useParams, Link } from "react-router-dom";
 import { Context } from "../../../store/appContext.js";
 
@@ -19,7 +19,7 @@ const Pokemon= () => {
 	const {store}= useContext(Context)
 
 	pokemon.getById(params.id).then((res) => setPoke_info(res));
-	// useEffect(() => {}, [planet]);
+	
 	function getAbilities() {
 		if (!poke_info.abilities) return;
 		return poke_info.abilities.map((ability) => {
@@ -44,6 +44,7 @@ const Pokemon= () => {
 			</ListGroup.Item>);
 		});
 	}
+
 	function getStats() {
 		if (!poke_info.stats) return;
 		return poke_info.stats.map((stat) => {
@@ -61,10 +62,13 @@ const Pokemon= () => {
 		//verifico que no se haya seleccionado antes el mismo pokemon
 		for (let i=0; i<store.stared.length; i++) {
 			if (pokemon.id==store.stared[i].id){
+				
 				return 0
 			}
+			
 
 		}
+	
 		//agrego los parametros que voy a necesitar al store
 		const favorito ={
 			url:pokemon.url,
@@ -73,10 +77,12 @@ const Pokemon= () => {
 			id: pokemon.id
 		}
 		myStore.actions.agregarFavorito(favorito)
+		
 	}
 
 	function eliminarFavorito (id){
 		myStore.actions.eliminarFavoritos(id)
+		
 	}
 
 	function cargarFavoritos(){
@@ -104,7 +110,23 @@ const Pokemon= () => {
 					
 		</div>);
 	}
-	
+
+	function boton(pokemon){
+		//verifico que no se haya seleccionado antes el mismo pokemon
+		//determino que boton asignar segun si se encuentra o no en la lista de favoritos
+		
+		for (let i=0; i<store.stared.length; i++) {
+			if (pokemon.id==store.stared[i].id){
+				return (<Button variant="primary" onClick={()=>eliminarFavorito(poke_info.id)}><h4><strong> - </strong></h4></Button>)
+			}			
+		}
+		return (<Button variant="warning" onClick={()=>agregarFavoritos(poke_info)}><h4><strong> + </strong></h4></Button>)
+
+	}
+
+
+
+
 	function getPoke_info() {
 		return (
 			<div className="d-flex align-content-center">
@@ -122,7 +144,8 @@ const Pokemon= () => {
 									width="180"
 									height="100"
 								/>
-								<Button variant="warning" onClick={()=>agregarFavoritos(poke_info)}><h4><strong> + </strong></h4></Button>
+								
+								{boton(poke_info)}
 								<Card.Body>
 									
 									
@@ -174,4 +197,4 @@ const Pokemon= () => {
 	return <div>{getPoke_info()}</div>;
 };
 
-export default Pokemon;
+export default Pokemon ;

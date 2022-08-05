@@ -33,7 +33,6 @@ const ListPokemon = () => {
 			setData(data.results);
 			setUsuarios(data.results);
 			setTablaUsuarios(data.results);
-			console.log(data.results)
 
 			// Esta actualizacion tiene un hook
 			
