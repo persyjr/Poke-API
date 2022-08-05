@@ -82,7 +82,7 @@ const Pokemon= () => {
 	function cargarFavoritos(){
 		if (store.stared == 0){
 			return (
-				<h4><i>lista vacia, no hay ningún pokemón listo</i></h4>
+				<h4 className="text-center"  ><i>lista vacia, no hay ningún pokemón listo</i></h4>
 			);
 		} 
 		return store.stared.map(item =>
@@ -159,7 +159,7 @@ const Pokemon= () => {
 						</Row>
 						</Col>
 						<Col >
-							<h4><strong><i>LISTOS PARA EL COMBATE</i></strong></h4>
+							<h4 className="text-center" ><strong><i>LISTOS PARA EL COMBATE</i></strong></h4>
 							<Row className="d-flex justify-content-evenly" xs={2} md={2} lg={2} >
 							{cargarFavoritos()}
 							</Row>			

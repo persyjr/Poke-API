@@ -8,6 +8,8 @@ import Card from "react-bootstrap/Card";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 import { pokemon } from "../../../apiStarWars.js";
 import { Link } from "react-router-dom";
@@ -16,33 +18,36 @@ import { Context } from "../../../store/appContext.js";
 
 const ListPokemon = () => {
 	var [data, setData] = useState([]);
+	var [busqueda, setBusqueda]= useState("");
+	var [tablaUsuarios, setTablaUsuarios]= useState([]);
+	var [usuarios, setUsuarios]= useState([]);
+
     const myStore = useContext(Context);
 	const {store}= useContext(Context)
 
-	function irAPagina(id) {
-		//esta funcion me permite usar el boton de cada paginacion
-		//primero traigo la informacion desde mi funcion en la apiPokemon.js
-		pokemon.getQuery(id).then((data) => {
-			console.log("Cargando pagina ... ", id);
-			// Se actualizan los valores del estado
-			
+	function irAPagina() {
+		//me permite hacer el query con la api y traerme la informacion
+		pokemon.getQuery().then((data) => {
+			console.log("Cargando pagina ... ");
+			// Se actualizan los valores del estado			
 			setData(data.results);
+			setUsuarios(data.results);
+			setTablaUsuarios(data.results);
+			console.log(data.results)
+
 			// Esta actualizacion tiene un hook
 			
-			console.log("Cargada pagina ", id);
+			console.log("Cargada pagina ");
 		});
 	}
-
 	
-
 	useEffect(() => {
 		console.log("Componente montado");
-		irAPagina(0);
+		irAPagina();
 		return () => {
 			console.log("Componente desmontado");
 		};
 	}, []);
-
 	
     function agregarFavoritos(pokemon){
 		//verifico que no se haya seleccionado antes el mismo pokemon
@@ -67,12 +72,10 @@ const ListPokemon = () => {
 	}
 
 	function getItems() {
-		//esta es la funcion que me muestra la vista de items con la imagen en un stilo card
-		//lo hago mediante un map a la variable data
-		if (!data) return;
-		return data.map((pokemon) => {
+		if (!usuarios) return;
+		return usuarios.map((pokemon) => {
 			return (
-				<ListGroup.Item className="d-flex justify-content-center" key={data.indexOf(pokemon)+1}>
+				<ListGroup.Item className="d-flex justify-content-center" key={usuarios.indexOf(pokemon)+1}>
 					<Card style={{ width: "10rem" }}>
 							<Link
 								className="btn btn-primary"
@@ -98,12 +101,24 @@ const ListPokemon = () => {
 		});
 	}
 
-	
+	const handleChange  =(e)=>{
+		setBusqueda(e.target.value);
+		filtrar(e.target.value);
+	}
+
+	const filtrar  =(terminoBusqueda)=>{
+		var resultadosBusqueda = data.filter((pokemon) => { 
+			if (pokemon.name.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())){
+				return pokemon;
+			}						
+		});	
+		setUsuarios(resultadosBusqueda) 
+	}
 
 	function cargarFavoritos(){
 		if (store.stared == 0){
 			return (
-				<h4><i>lista vacia, no hay ningún pokemón listo</i></h4>
+				<h4 className="text-center"  ><i>lista vacia, no hay ningún pokemón listo</i></h4>
 			);
 		} 
 		return store.stared.map(item =>
@@ -132,14 +147,23 @@ const ListPokemon = () => {
 			
 			<Container >
 			<Row>
-				<Col  lg={8}  >
-					<h2 >¿Quien es ese pokemon?</h2>
+				<Col lg={8}  >
+					<h2 className="text-center" >¿Quien es ese pokemon?</h2>
 					<Row xs={2} md={3} lg={4} >
+					<InputGroup size="lg">
+						<InputGroup.Text id="inputGroup-sizing-lg">Nombre</InputGroup.Text>
+							<Form.Control
+							aria-label="Large"
+							aria-describedby="inputGroup-sizing-sm"
+							placeholder="Busqueda por nombre"
+							onChange={handleChange}
+							/>
+					</InputGroup>
 						{getItems()}
 					</Row>										
 				</Col>
 				<Col >
-					<h4><strong><i>LISTOS PARA EL COMBATE</i></strong></h4>
+					<h4 className="text-center" ><strong><i>LISTOS PARA EL COMBATE</i></strong></h4>
 					<Row className="d-flex justify-content-evenly" xs={2} md={2} lg={2} >
 						{cargarFavoritos()}
 					</Row>			
