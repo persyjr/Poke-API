@@ -6,7 +6,7 @@ import { Home } from "./views/home";
 import { Single } from "./views/single";
 import injectContext from "./store/appContext";
 
-import ListPokemon,{Pokemon} from "./views/starWars/pokemon";
+import ListPokemon,{Pokemon} from "./views/pokemon/pokemon";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";

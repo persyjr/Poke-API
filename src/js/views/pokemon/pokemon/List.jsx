@@ -11,7 +11,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-import { pokemon } from "../../../apiStarWars.js";
+import { pokemon } from "../../../apiPokemon.js";
 import { Link } from "react-router-dom";
 import { Context } from "../../../store/appContext.js";
 
@@ -25,7 +25,7 @@ const ListPokemon = () => {
     const myStore = useContext(Context);
 	const {store}= useContext(Context)
 
-	function irAPagina() {
+	function iniciarQuery() {
 		//me permite hacer el query con la api y traerme la informacion
 		pokemon.getQuery().then((data) => {
 			console.log("Cargando pagina ... ");
@@ -33,16 +33,14 @@ const ListPokemon = () => {
 			setData(data.results);
 			setUsuarios(data.results);
 			setTablaUsuarios(data.results);
-
-			// Esta actualizacion tiene un hook
-			
+			// Esta actualizacion tiene un hook			
 			console.log("Cargada pagina ");
 		});
 	}
 	
 	useEffect(() => {
 		console.log("Componente montado");
-		irAPagina();
+		iniciarQuery();
 		return () => {
 			console.log("Componente desmontado");
 		};
@@ -87,7 +85,8 @@ const ListPokemon = () => {
 										src={pokemon.img}
 									/>
 									<Card.Body>
-										<Card.Title># {pokemon.id} {pokemon.name}</Card.Title>	
+										<Card.Title ># {pokemon.id} </Card.Title>
+										<strong className="text-capitalize">{pokemon.name}</strong>	
 									</Card.Body>
 								</div>
 							</Link>
@@ -130,8 +129,9 @@ const ListPokemon = () => {
 					height="50"
 					src={item.img}
 				/>
-				<Card.Body>
-					<Card.Title># {item.id} {item.name}</Card.Title>	
+				<Card.Body className="text-center text-capitalize" >
+						<Card.Title># {item.id} </Card.Title>	
+						<strong>{item.name}</strong>
 				</Card.Body>
 				<Button variant="primary" onClick={()=>eliminarFavorito(item.id)}><h4><strong> - </strong></h4></Button>
 			</Card>
@@ -162,10 +162,12 @@ const ListPokemon = () => {
 					</Row>										
 				</Col>
 				<Col >
+				<div className="sticky-top">
 					<h4 className="text-center" ><strong><i>LISTOS PARA EL COMBATE</i></strong></h4>
 					<Row className="d-flex justify-content-evenly" xs={2} md={2} lg={2} >
 						{cargarFavoritos()}
-					</Row>			
+					</Row>
+				</div>			
 				</Col>
 			</Row>	
 			</Container>

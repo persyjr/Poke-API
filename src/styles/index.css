@@ -1,8 +1,9 @@
 /* 
     General Styles
+    los unicos estilos por el momento para la portada y el navbar, con las dimensiones de las fotos
 */
-.logoStarWars{
-    width: 150px;
+.logoPokemon{
+    width:200px;
 }
 .imagenPortada{
     width: 1100px;
