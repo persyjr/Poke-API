@@ -76,7 +76,7 @@ const ListPokemon = () => {
 					<Card style={{ width: "10rem" }}>
 							<Link
 								className="btn btn-primary"
-								to={`/pokemon/${pokemon.numero}`}>
+								to={`/pokemon/${pokemon.id}`}>
 								<div>									
 									<Card.Img
 										className="img-fluid"
