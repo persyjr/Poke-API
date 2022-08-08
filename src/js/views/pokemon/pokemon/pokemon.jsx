@@ -24,7 +24,7 @@ const Pokemon= () => {
 		if (!poke_info.abilities) return;
 		return poke_info.abilities.map((ability) => {
 			return (
-			<ListGroup.Item  className="d-flex justify-content-center d-flex bg-primary p-2 text-dark bg-opacity-25" key={poke_info.abilities.indexOf(ability)+1}>
+			<ListGroup.Item  className="d-flex justify-content-center d-flex bg-primary p-2 text-white bg-opacity-25" key={poke_info.abilities.indexOf(ability)+1}>
 				<figure className="text-center">
 					<blockquote className="blockquote text-capitalize">{ability.ability.name} </blockquote>									
 				</figure>				
@@ -36,7 +36,7 @@ const Pokemon= () => {
 		if (!poke_info.types) return;
 		return poke_info.types.map((type) => {
 			return (
-			<ListGroup.Item className="d-flex justify-content-center bg-primary p-2 text-dark bg-opacity-25" key={poke_info.types.indexOf(type)+1}>
+			<ListGroup.Item className="d-flex justify-content-center bg-primary p-2 text-white bg-opacity-25" key={poke_info.types.indexOf(type)+1}>
 				<figure className="text-center">
 					<blockquote className="blockquote text-capitalize">{type.type.name}</blockquote>													
 				</figure>				
@@ -48,10 +48,10 @@ const Pokemon= () => {
 		if (!poke_info.stats) return;
 		return poke_info.stats.map((stat) => {
 			return (
-				<ListGroup.Item className="bg-primary p-2 text-dark bg-opacity-25">
+				<ListGroup.Item className="bg-primary p-2 text-white bg-opacity-25">
 					<figure className="text-center text-capitalize">
 						<blockquote className="blockquote"> valor: <strong>{stat.base_stat} </strong></blockquote> 	
-						<figcaption className="blockquote-footer fs-5">				
+						<figcaption className="blockquote-footer text-white fs-5">				
 						<cite title="Source Title">{stat.stat.name} </cite>
 						</figcaption>									
 					</figure>			
@@ -123,12 +123,12 @@ const Pokemon= () => {
 	//funcion principal de ensamble de componente
 	function getPoke_info() {
 		return (
-			<div className="d-flex align-content-center">
+			<div className=" d-flex align-content-center p-2 text-dark ">
 				<Container>
 					<Row >
 						<Col  lg={8}>
 							<Row className="d-flex justify-content-center" >
-								<Card className="bg-secondary p-2 text-dark bg-opacity-10" border="warning" style={{ width: "35rem" }}>
+								<Card className="BgDetalle p-2 text-white bg-opacity-75" border="warning" style={{ width: "35rem" }}>
 									<h2  className="d-flex text-capitalize justify-content-center">{poke_info.name}</h2>
 									<Card.Img
 										className="img-fluid"
@@ -146,7 +146,7 @@ const Pokemon= () => {
 										</div>									
 									</Card.Body>
 								</Card>
-								<Card className="bg-primary p-2 text-dark bg-opacity-10" style={{ width: "45rem" }} border="info">
+								<Card className="BgDetalle p-2 text-white bg-opacity-10" style={{ width: "45rem" }} border="info">
 									<Row className="d-flex justify-content-evenly">
 										<Col className="text-center">
 											<p className="h4" >Habilidades</p>
@@ -165,7 +165,7 @@ const Pokemon= () => {
 							</Row>
 						</Col>
 						<Col >
-						<div className="sticky-top">
+						<div className=" sticky-top">
 							<h4 className="text-center" ><strong><i>LISTOS PARA EL COMBATE</i></strong></h4>
 							<Row className="d-flex justify-content-evenly" xs={2} md={2} lg={2} >
 								{cargarFavoritos()}

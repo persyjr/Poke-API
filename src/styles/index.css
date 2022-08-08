@@ -8,3 +8,11 @@
 .imagenPortada{
     width: 1100px;
 }
+.BgDetalle{
+    display: flex;
+    background-image: url("https://media.giphy.com/media/kg19fN5BXbZGIDznzG/giphy.gif");    
+    width:100%;
+    height:auto;
+    object-fit:cover;
+}
+
